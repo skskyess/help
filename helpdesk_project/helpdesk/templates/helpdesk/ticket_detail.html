@@ -1,0 +1,56 @@
+{% block content %}
+  <h2>Детали проблемы</h2>
+  <table>
+    <tr>
+      <th>Имя</th>
+      <td>{{ ticket.name }}</td>
+    </tr>
+    <tr>
+      <th>Телефон</th>
+      <td>{{ ticket.phone }}</td>
+    </tr>
+    <tr>
+      <th>Емейл</th>
+      <td>{{ ticket.email }}</td>
+    </tr>
+    <tr>
+      <th>Описание проблемы</th>
+      <td>{{ ticket.description }}</td>
+    </tr>
+    <tr>
+      <th>Приоритет</th>
+      <td>{{ ticket.get_priority_display }}</td>
+    </tr>
+    <tr>
+        <tr>
+            <th>Статус</th>
+            <td>
+              {% if can_edit %}
+              <form method="post">
+                {% csrf_token %}
+                {{ form.status }}
+                <input type="submit" value="Сохранить">
+              </form>
+              {% else %}
+              {{ ticket.get_status_display }}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Действия</th>
+            <td>
+              {% if can_edit %}
+              <form method="post">
+                {% csrf_token %}
+                {{ form.actions|linebreaks }}
+                <textarea name="actions" rows="4" cols="50"></textarea>
+                <input type="submit" value="Сохранить">
+              </form>
+              {% else %}
+              {{ ticket.actions|linebreaks }}
+              {% endif %}
+            </td>
+          </tr>
+  </table>
+  <a href="{% url 'ticket_list' %}">Назад к списку проблем</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% block content %}
+  <h2>Список проблем</h2>
+  <ul>
+    {% for ticket in tickets %}
+    <li>{{ ticket.name }} - {{ ticket.phone }} - {{ ticket.description }} - {{ ticket.priority }} - {{ ticket.created_at }}</li>
+      <li>
+        <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.name }}</a>
+        (Приоритет: {{ ticket.get_priority_display }}) - Статус: {{ ticket.get_status_display }}
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'create_ticket' %}">Создать новую проблему</a>
+{% endblock %}
+

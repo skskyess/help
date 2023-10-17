@@ -1,0 +1,8 @@
+{% block content %}
+<h1>Создать новую проблему</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить</button>
+</form>
+{% endblock %}
